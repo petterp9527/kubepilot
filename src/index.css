@@ -1,0 +1,191 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-line: #e6e9f1;
+  --color-line-soft: #eff2f7;
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-faint: #94a3b8;
+  --color-brand: #2563eb;
+  --color-brand-soft: #eff4ff;
+  --color-brand-ink: #1d4ed8;
+  --color-success: #16a34a;
+  --color-success-soft: #ecfdf3;
+  --color-warning: #d97706;
+  --color-warning-soft: #fff8ed;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-sidebar: #0b1220;
+
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+
+  /* 细滚动条，贴合控制台密度 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #cfd7e3;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #b6c1d1;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+}
+
+@utility num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+@layer components {
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 12px;
+  }
+
+  .row-hover {
+    transition:
+      background-color 0.12s ease,
+      box-shadow 0.12s ease;
+  }
+  .row-hover:hover {
+    background: #f8fafc;
+  }
+
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px #bfdbfe;
+  }
+
+  .sidebar-grain {
+    background-image:
+      radial-gradient(
+        900px 300px at -10% -10%,
+        rgba(37, 99, 235, 0.28),
+        transparent 60%
+      ),
+      radial-gradient(
+        700px 260px at 120% 105%,
+        rgba(14, 165, 164, 0.16),
+        transparent 60%
+      );
+  }
+
+  .animate-in {
+    animation: fade-up 0.18s ease-out both;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e8eef7 37%, #f1f5f9 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(22, 163, 74, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+.live-dot {
+  animation: pulse-ring 2s infinite;
+}
+
+/* 终端光标 */
+.caret::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: #4ade80;
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
